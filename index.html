@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Grind Guide — Europe's Best Cafés</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #F7F3EE;
+      --ink:      #1A1612;
+      --espresso: #2E1A0E;
+      --steam:    #A89B8C;
+      --moss:     #3D5A3E;
+      --gold:     #C9A84C;
+      --blush:    #E8D5C4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      background: var(--espresso);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-nav .wordmark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links a {
+      color: var(--blush);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-left: 28px;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 96px 32px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-size: 1.05rem;
+      opacity: 0.75;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-top: 2px;
+    }
+
+    /* ── COUNTRY TABS ── */
+    .country-nav {
+      background: var(--ink);
+      padding: 0 32px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .country-nav::-webkit-scrollbar { display: none; }
+    .country-tab {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 18px 28px;
+      color: var(--steam);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-tab:hover,
+    .country-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .flag { font-size: 1.1rem; }
+
+    /* ── COUNTRY SECTIONS ── */
+    .country-section { padding: 72px 32px 80px; }
+    .country-section:nth-child(even) { background: #f0ebe4; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .section-header-left { }
+    .section-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      color: var(--espresso);
+      line-height: 1.15;
+    }
+    .section-header h2 em {
+      font-style: italic;
+      color: var(--moss);
+    }
+    .section-count {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--steam);
+      font-weight: 500;
+    }
+
+    /* ── CAFE CARDS ── */
+    .cafe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .cafe-card {
+      background: #fff;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .cafe-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+
+    .card-stripe {
+      height: 4px;
+      background: var(--gold);
+    }
+    .card-stripe.moss  { background: var(--moss); }
+    .card-stripe.steam { background: var(--steam); }
+    .card-stripe.blush { background: var(--blush); }
+
+    .card-body-inner {
+      padding: 24px 24px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--steam);
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      color: var(--espresso);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .card-city {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--steam);
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #4a4540;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid var(--moss);
+      padding-bottom: 1px;
+      width: fit-content;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .card-link:hover { color: var(--gold); border-color: var(--gold); }
+    .card-link svg { flex-shrink: 0; }
+
+    /* FEATURED CARD */
+    .cafe-card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    @media (max-width: 640px) {
+      .cafe-card.featured { grid-column: span 1; flex-direction: column; }
+    }
+    .featured .card-stripe {
+      width: 4px;
+      height: auto;
+      flex-shrink: 0;
+    }
+    .featured .card-body-inner { padding: 32px 28px; }
+    .featured .card-title { font-size: 1.45rem; }
+    .featured-badge {
+      display: inline-block;
+      background: var(--espresso);
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--espresso);
+      color: var(--blush);
+      padding: 60px 32px 40px;
+      text-align: center;
+    }
+    footer .f-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    footer p {
+      font-size: 0.82rem;
+      opacity: 0.55;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    footer .f-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 24px auto;
+      opacity: 0.4;
+    }
+
+    /* smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    @media (max-width: 768px) {
+      .hero { padding: 64px 20px 56px; }
+      .hero-stats { gap: 28px; }
+      .country-section { padding: 52px 20px 60px; }
+      .section-header { margin-bottom: 32px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a class="wordmark" href="#">The Grind Guide</a>
+  <div class="nav-links">
+    <a href="#ireland">Ireland</a>
+    <a href="#uk">United Kingdom</a>
+    <a href="#france">France</a>
+    <a href="#usa">United States</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">A Curated Directory of the World's Finest Cups</p>
+  <h1>Where Great Coffee<br><em>Lives &amp; Breathes</em></h1>
+  <p class="hero-sub">Hand-picked independent cafés across Ireland, the United Kingdom, France, and the United States — each one worth going out of your way for.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">40</span>
+      <span class="stat-label">Cafés Listed</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Countries</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">12+</span>
+      <span class="stat-label">Cities</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Good Coffee</span>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTRY TABS -->
+<div class="country-nav">
+  <a href="#ireland"  class="country-tab active"><span class="flag">🇮🇪</span> Ireland</a>
+  <a href="#uk"       class="country-tab"><span class="flag">🇬🇧</span> United Kingdom</a>
+  <a href="#france"   class="country-tab"><span class="flag">🇫🇷</span> France</a>
+  <a href="#usa"      class="country-tab"><span class="flag">🇺🇸</span> United States</a>
+</div>
+
+<!-- IRELAND -->
+<section class="country-section" id="ireland">
+  <div class="container-fluid px-0">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-kicker">🇮🇪 Ireland</p>
+        <h2>The Emerald Isle's<br><em>Finest Brews</em></h2>
+      </div>
+      <span class="section-count">10 Cafés</span>
+    </div>
+    <div class="cafe-grid">
+
+      <!-- FEATURED -->
+      <div class="cafe-card featured">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <span class="featured-badge">Editor's Pick</span>
+          <p class="card-num">IE — 01</p>
+          <h3 class="card-title">3fe Coffee</h3>
+          <p class="card-city">Dublin · Grand Canal Street</p>
+          <p class="card-desc">Founded by barista champion Colin Harmon in 2009, 3fe is widely regarded as Dublin's flagship specialty coffee destination. Single-origin beans, flawless pour-overs, and an atmosphere that proves Ireland's coffee scene can hold its own against any European city.</p>
+          <a class="card-link" href="https://3fe.com" target="_blank" rel="noopener">
+            Visit Website
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 02</p>
+          <h3 class="card-title">Proper Order Coffee Co.</h3>
+          <p class="card-city">Dublin · Smithfield</p>
+          <p class="card-desc">Irish Barista and Brewers Cup champion-winning café with a rotating bean selection and a beautifully minimal green and white interior. Widely considered the best espresso in Smithfield.</p>
+          <a class="card-link" href="https://properordercoffee.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 03</p>
+          <h3 class="card-title">Kaph</h3>
+          <p class="card-city">Dublin · Drury Street</p>
+          <p class="card-desc">An independent contemporary coffee shop in Dublin's Creative Quarter, serving specialty gourmet coffee and stunning cakes across two floors. A favourite haunt for creatives and remote workers since 2013.</p>
+          <a class="card-link" href="https://kaph.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 04</p>
+          <h3 class="card-title">Vice Coffee Inc.</h3>
+          <p class="card-city">Dublin · Middle Abbey Street</p>
+          <p class="card-desc">Part café, part bar, all character. Known for award-winning Irish coffees and inventive espresso drinks, Vice has been crafting some of Dublin's finest bean brews since 2013 from its home inside WIGWAM.</p>
+          <a class="card-link" href="https://www.vicecoffeeinc.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 05</p>
+          <h3 class="card-title">Copper + Straw</h3>
+          <p class="card-city">Dublin · Aungier Street</p>
+          <p class="card-desc">A stylish, industrial-chic café beloved for its flat whites and warm atmosphere. The Ashton Quay location is especially convenient for visitors exploring Dublin's key sights along the river.</p>
+          <a class="card-link" href="https://copperandstraw.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 06</p>
+          <h3 class="card-title">The Fumbally</h3>
+          <p class="card-city">Dublin · Merchants Quay</p>
+          <p class="card-desc">An icon of Dublin's independent food scene. Sources single-origin beans from world-class roasters and makes its own sunflower milk. Two shots are the standard here — welcome to the Liberties.</p>
+          <a class="card-link" href="https://thefumbally.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 07</p>
+          <h3 class="card-title">Coffeeangel</h3>
+          <p class="card-city">Dublin · Multiple Locations</p>
+          <p class="card-desc">A Dublin institution born from a passion for great hospitality, Coffeeangel helped shape Irish coffee culture from the ground up. Known for impeccably prepared flat whites and a deeply community-rooted ethos.</p>
+          <a class="card-link" href="https://coffeeangel.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 08</p>
+          <h3 class="card-title">Scéal Bakery</h3>
+          <p class="card-city">Greystones, Co. Wicklow</p>
+          <p class="card-desc">Perhaps the prettiest café in Ireland. Founded in 2017 by Charlotte Leonard-Kane and Shane Palmer, Scéal focuses on seasonal Irish ingredients, extraordinary pastries, and warming macchiatos that match the craft of their bakes.</p>
+          <a class="card-link" href="https://scealbakery.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 09</p>
+          <h3 class="card-title">Shoe Lane Coffee</h3>
+          <p class="card-city">Dublin · City Centre</p>
+          <p class="card-desc">Set in a restored 19th-century cobbler's shop, Shoe Lane honours the past with vintage shoemaking tools displayed near the entrance — and honours the present with single-origin Full Circle beans and a La Marzocco KB90.</p>
+          <a class="card-link" href="https://www.shoelanecoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">IE — 10</p>
+          <h3 class="card-title">Two Pups Coffee</h3>
+          <p class="card-city">Dublin · The Liberties</p>
+          <p class="card-desc">One part specialty café, one part yoga studio, entirely vibrant. Two Pups sources its beans from London's Square Mile roasters and serves a menu bold enough to put garlic peanut butter on avocado toast — and somehow make it work.</p>
+          <a class="card-link" href="https://twopupscoffee.ie" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- UK -->
+<section class="country-section" id="uk">
+  <div class="container-fluid px-0">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-kicker">🇬🇧 United Kingdom</p>
+        <h2>London &amp; Edinburgh's<br><em>Essential Stops</em></h2>
+      </div>
+      <span class="section-count">10 Cafés</span>
+    </div>
+    <div class="cafe-grid">
+
+      <div class="cafe-card featured">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <span class="featured-badge">Editor's Pick</span>
+          <p class="card-num">UK — 01</p>
+          <h3 class="card-title">Monmouth Coffee Company</h3>
+          <p class="card-city">London · Covent Garden &amp; Borough Market</p>
+          <p class="card-desc">An enduring London institution since 1978. Monmouth roasts their own beans and takes sourcing seriously — long before it was fashionable. Getting a seat at the Borough Market café is a triumph worth celebrating. There are no chains here, only coffee done exactly right.</p>
+          <a class="card-link" href="https://monmouthcoffee.co.uk" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 02</p>
+          <h3 class="card-title">Prufrock Coffee</h3>
+          <p class="card-city">London · Leather Lane, Clerkenwell</p>
+          <p class="card-desc">Created by former World Barista Champion Gwilym Davies, Prufrock is a spacious, committed temple to specialty brewing. An essential stop for anyone who takes their coffee with a side of craft and conversation.</p>
+          <a class="card-link" href="https://prufrockcoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 03</p>
+          <h3 class="card-title">WatchHouse</h3>
+          <p class="card-city">London · Bermondsey Street</p>
+          <p class="card-desc">Born inside a converted old watchmaker's building on Bermondsey Street, WatchHouse has managed to grow without losing its soul. The original location still feels like a neighbourhood secret despite the brand's wider success.</p>
+          <a class="card-link" href="https://watchhouse.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 04</p>
+          <h3 class="card-title">Ozone Coffee Roasters</h3>
+          <p class="card-city">London · Shoreditch &amp; London Fields</p>
+          <p class="card-desc">Part café, part roastery, part breakfast destination. One of London's best all-rounders — serious about single-origin coffee while remaining a genuinely warm space to linger over a full breakfast and a flat white.</p>
+          <a class="card-link" href="https://ozonecoffee.co.uk" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 05</p>
+          <h3 class="card-title">Caffè Vergnano 1882</h3>
+          <p class="card-city">London · Charing Cross Road</p>
+          <p class="card-desc">The best espresso in central London, full stop — according to a long list of aficionados. This Italian café on Charing Cross Road is the go-to for homesick Italians and serious espresso enthusiasts alike.</p>
+          <a class="card-link" href="https://caffevergnano1882.co.uk" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 06</p>
+          <h3 class="card-title">The Milkman</h3>
+          <p class="card-city">Edinburgh · Cockburn Street</p>
+          <p class="card-desc">Housed in a refurbished confectionary store on Cockburn Street, The Milkman is named after the founder's great-grandfather — the last horse-drawn milkman in Aberdeenshire. A rotating menu of guest roasters keeps every visit different.</p>
+          <a class="card-link" href="https://www.themilkman.coffee" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 07</p>
+          <h3 class="card-title">Fortitude Coffee</h3>
+          <p class="card-city">Edinburgh · Stockbridge &amp; Newington</p>
+          <p class="card-desc">Small batch roasting, filtered water, single-origin beans, and a La Marzocco Linea PB. Fortitude details everything in the name of a better cup, with shelves of retail bags and jam doughnuts from local bakers completing the experience.</p>
+          <a class="card-link" href="https://fortitudecoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 08</p>
+          <h3 class="card-title">Twelve Triangles</h3>
+          <p class="card-city">Edinburgh · Multiple Locations</p>
+          <p class="card-desc">Sourdough made by hand via a three-to-four day cold-prove process, served with exceptional Fortitude coffee. Their seasonal croissant loaves — think blackcurrant and dark chocolate soaked in custard — have become a genuine Edinburgh food institution.</p>
+          <a class="card-link" href="https://twelvetriangles.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 09</p>
+          <h3 class="card-title">Cairngorm Coffee</h3>
+          <p class="card-city">Edinburgh · City Centre</p>
+          <p class="card-desc">Bright, airy, and welcoming, Cairngorm has two Edinburgh locations serving juicy, sweet flat whites from a team that genuinely cares about the craft. A perfect pit stop between sightseeing and the type of café you find yourself returning to.</p>
+          <a class="card-link" href="https://cairngormcoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">UK — 10</p>
+          <h3 class="card-title">Söderberg</h3>
+          <p class="card-city">Edinburgh · Multiple Locations</p>
+          <p class="card-desc">An authentically Swedish café group with seven Edinburgh locations, Söderberg pairs cardamom buns filled with almond paste and whipped cream with silky flat whites in minimalist Scandi-inspired surroundings. Hygge in café form.</p>
+          <a class="card-link" href="https://soderberg.uk" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FRANCE -->
+<section class="country-section" id="france">
+  <div class="container-fluid px-0">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-kicker">🇫🇷 France</p>
+        <h2>Paris, Where Coffee<br><em>Becomes Ceremony</em></h2>
+      </div>
+      <span class="section-count">10 Cafés</span>
+    </div>
+    <div class="cafe-grid">
+
+      <div class="cafe-card featured">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <span class="featured-badge">Editor's Pick</span>
+          <p class="card-num">FR — 01</p>
+          <h3 class="card-title">Café de Flore</h3>
+          <p class="card-city">Paris · Saint-Germain-des-Prés</p>
+          <p class="card-desc">A Parisian institution since the 1880s. Red leather booths, the aroma of espresso, and the ghosts of Simone de Beauvoir and Jean-Paul Sartre at the next table. Not a specialty coffee shop — something greater: a living piece of cultural history that still makes an excellent cup.</p>
+          <a class="card-link" href="https://cafedeflore.fr" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 02</p>
+          <h3 class="card-title">Ten Belles</h3>
+          <p class="card-city">Paris · Canal Saint-Martin</p>
+          <p class="card-desc">A tiny, beloved hole-in-the-wall bakery-café near Canal Saint-Martin that many consider to serve one of the finest cups in the city. Arrive early, order confidently, and linger as long as Parisians permit themselves — which is always long enough.</p>
+          <a class="card-link" href="https://tenbelles.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 03</p>
+          <h3 class="card-title">Café Kitsuné</h3>
+          <p class="card-city">Paris · Palais Royal &amp; Multiple</p>
+          <p class="card-desc">The Palais Royal location — where you sip a macchiato under the arcades with the garden unfolding before you — might be the single most beautiful spot to drink coffee in the world. Kitsuné's seasonal drinks and refined aesthetic are unmatched.</p>
+          <a class="card-link" href="https://cafekitsune.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 04</p>
+          <h3 class="card-title">Lomi Café</h3>
+          <p class="card-city">Paris · 18th Arrondissement</p>
+          <p class="card-desc">An in-house roasting facility, exposed stone walls, reclaimed wood, and a house speciality of café fromage — espresso paired with blue cheese. Lomi is one of Paris's most adventurous and acclaimed specialty destinations.</p>
+          <a class="card-link" href="https://cafelomi.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 05</p>
+          <h3 class="card-title">Boot Café</h3>
+          <p class="card-city">Paris · Le Marais</p>
+          <p class="card-desc">Hidden inside a former cobbler's workshop in the Marais district, Boot Café has barely two tables and a world-class rotation of specialty beans. The tiny blue shopfront is one of Paris's most photographed — and most genuinely loved — coffee spots.</p>
+          <a class="card-link" href="https://www.instagram.com/bootcafe" target="_blank" rel="noopener">Find on Instagram <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 06</p>
+          <h3 class="card-title">Stohrer</h3>
+          <p class="card-city">Paris · 2nd Arrondissement</p>
+          <p class="card-desc">In existence since 1730 and created by King Louis XV's pastry chef, Stohrer is the oldest pâtisserie in Paris and a listed historical monument. An espresso alongside a flaky croissant in this opulent interior is a genuinely irreplaceable experience.</p>
+          <a class="card-link" href="https://stohrer.fr" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 07</p>
+          <h3 class="card-title">Café de la Paix</h3>
+          <p class="card-city">Paris · 9th Arrondissement</p>
+          <p class="card-desc">Brunch and coffee in one of Paris's most lavish settings, with a terrace overlooking the Opera Garnier. A place where the grandeur of the Second Empire meets a very good cappuccino and some of the finest people-watching in the city.</p>
+          <a class="card-link" href="https://cafedelapaix.fr" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 08</p>
+          <h3 class="card-title">Bonjour Jacob</h3>
+          <p class="card-city">Paris · Saint-Germain &amp; Canal Saint-Martin</p>
+          <p class="card-desc">A vinyl record shop meets specialty café — Bonjour Jacob stocks a curated collection of LPs alongside excellent coffee, turning a caffeine stop into a cultural afternoon. Two locations, one very good vibe.</p>
+          <a class="card-link" href="https://www.bonjourjacob.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 09</p>
+          <h3 class="card-title">Merci Café</h3>
+          <p class="card-city">Paris · Le Marais</p>
+          <p class="card-desc">A used bookstore, concept store, and café wrapped into one destination. Merci's cobblestone courtyard with a little red Fiat parked in the centre is quintessentially Parisian. Order a coffee and settle in with a book from the shelves.</p>
+          <a class="card-link" href="https://merci-merci.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">FR — 10</p>
+          <h3 class="card-title">Clove Coffee</h3>
+          <p class="card-city">Paris · City Centre</p>
+          <p class="card-desc">Worth visiting for the chocolate babka alone. Clove serves specialty coffee alongside one of Paris's best selections of carefully baked goods, in a warm space that somehow avoids every Parisian café cliché while feeling completely at home in the city.</p>
+          <a class="card-link" href="https://www.instagram.com/clovecoffeeparis" target="_blank" rel="noopener">Find on Instagram <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- USA -->
+<section class="country-section" id="usa">
+  <div class="container-fluid px-0">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-kicker">🇺🇸 United States</p>
+        <h2>America's Independent<br><em>Coffee Champions</em></h2>
+      </div>
+      <span class="section-count">10 Cafés</span>
+    </div>
+    <div class="cafe-grid">
+
+      <!-- SWEET PALM FEATURED -->
+      <div class="cafe-card featured">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <span class="featured-badge">Featured · Charleston, SC</span>
+          <p class="card-num">US — 01</p>
+          <h3 class="card-title">Sweet Palm Coffee</h3>
+          <p class="card-city">Charleston, South Carolina · King Street</p>
+          <p class="card-desc">A standout on Charleston's celebrated King Street, Sweet Palm Coffee brings a food-forward café philosophy to the Holy City. Known for beautifully crafted coffee alongside inventive seasonal bites, it has become a genuine community gathering place in one of America's most beloved food cities. The kind of café that earns regulars for life.</p>
+          <a class="card-link" href="https://www.sweetpalmcoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 02</p>
+          <h3 class="card-title">Victrola Coffee Roasters</h3>
+          <p class="card-city">Seattle, Washington</p>
+          <p class="card-desc">Housed in a spectacular 1920s auto row building on Capitol Hill, Victrola combines an on-site roastery, training facility, and cupping room. Jazz-era vibes, window seats, and some of the Pacific Northwest's finest beans make this an unmissable Seattle stop.</p>
+          <a class="card-link" href="https://www.victrolacoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 03</p>
+          <h3 class="card-title">Espresso Vivace</h3>
+          <p class="card-city">Seattle, Washington</p>
+          <p class="card-desc">A Seattle legend, consistently cited as the city's finest espresso experience. The signature Café Nico — espresso, vanilla, orange, half-and-half, and cinnamon — is worth making the trip across the country for on its own.</p>
+          <a class="card-link" href="https://espressovivace.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 04</p>
+          <h3 class="card-title">Blue Bottle Coffee</h3>
+          <p class="card-city">Oakland &amp; San Francisco, California</p>
+          <p class="card-desc">The café that helped teach America what specialty coffee could be. Blue Bottle's commitment to freshness — beans roasted within 48 hours of serving — and obsessive brewing standards helped launch a national movement. The Ferry Building location remains a pilgrimage site.</p>
+          <a class="card-link" href="https://bluebottlecoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 05</p>
+          <h3 class="card-title">Metropolis Coffee Company</h3>
+          <p class="card-city">Chicago, Illinois</p>
+          <p class="card-desc">Hand-roasted beans delivered daily from the award-winning roastery a mile down the road on the Chicago River. Metropolis is the definition of a local roaster done right: fast, friendly, community-focused, and consistently delicious.</p>
+          <a class="card-link" href="https://metropoliscoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 06</p>
+          <h3 class="card-title">Thank You Thank You</h3>
+          <p class="card-city">Philadelphia, Pennsylvania</p>
+          <p class="card-desc">A small, immaculate café in Washington Square sourcing beans from around the world with genuine curiosity. Pour-overs and lattes prepared with the kind of care that makes every drink feel made specifically for you. Philadelphia's best-kept coffee secret.</p>
+          <a class="card-link" href="https://thankyouthankyoucoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe steam"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 07</p>
+          <h3 class="card-title">Frisson Espresso</h3>
+          <p class="card-city">New York City, New York</p>
+          <p class="card-city" style="margin-top:-10px; margin-bottom:10px;">Hell's Kitchen</p>
+          <p class="card-desc">The highest-rated independent café in New York City according to customer ratings, Frisson earned its reputation through exceptional espresso, warm baristas, and the kind of consistent quality that keeps a neighbourhood coming back every morning without exception.</p>
+          <a class="card-link" href="https://frissonespresso.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe blush"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 08</p>
+          <h3 class="card-title">Copper Star Coffee</h3>
+          <p class="card-city">Phoenix, Arizona</p>
+          <p class="card-desc">Set inside a repurposed service station, Copper Star is a Phoenix institution built on bagels, house-baked pastries, award-winning lavender syrup lattes, and a spicy dirty chai that locals swear by. Proof that great coffee culture thrives even in the desert.</p>
+          <a class="card-link" href="https://copperstarcoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe moss"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 09</p>
+          <h3 class="card-title">Caffé Vita</h3>
+          <p class="card-city">Seattle, Washington &amp; Beyond</p>
+          <p class="card-desc">Roasting in the Emerald City since 1995 with a focus on locally-roasted organic coffees sourced directly from the farm. With five Seattle locations and outposts in Portland and New York, Caffé Vita helped define the Pacific Northwest coffee identity before it was famous for it.</p>
+          <a class="card-link" href="https://caffevita.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="cafe-card">
+        <div class="card-stripe"></div>
+        <div class="card-body-inner">
+          <p class="card-num">US — 10</p>
+          <h3 class="card-title">Pacific Bean Coffee</h3>
+          <p class="card-city">San Diego, California</p>
+          <p class="card-desc">California's top-rated independent café, perched right on the coast where those who brave a late afternoon coffee are rewarded with sunset views over the Pacific. Exceptional beans, exceptional people, and a location that makes every cup taste better than it has any right to.</p>
+          <a class="card-link" href="https://www.pacificbeancoffee.com" target="_blank" rel="noopener">Visit Website <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="f-logo">The Grind Guide</p>
+  <div class="f-divider"></div>
+  <p>A curated directory of the world's finest independent cafés — from Dublin to San Diego, Edinburgh to Paris. Rebuilt from a beloved Irish café, now a home for coffee lovers everywhere.</p>
+  <div class="f-divider"></div>
+  <p style="font-size:0.7rem; opacity:0.35;">© 2025 The Grind Guide · All cafés independently selected</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Active tab highlight on scroll
+  const sections = document.querySelectorAll('.country-section');
+  const tabs = document.querySelectorAll('.country-tab');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.country-tab[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

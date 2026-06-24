@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What to Expect — The Grind Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #F7F3EE;
+      --ink:      #1A1612;
+      --espresso: #2E1A0E;
+      --steam:    #A89B8C;
+      --moss:     #3D5A3E;
+      --gold:     #C9A84C;
+      --blush:    #E8D5C4;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+
+    /* NAV */
+    .site-nav {
+      background: var(--espresso);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-nav .wordmark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links a {
+      color: var(--blush);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-left: 28px;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+
+    /* HERO */
+    .page-hero {
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 72px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '☕';
+      position: absolute;
+      font-size: 18rem;
+      opacity: 0.04;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .page-hero .kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero .subtitle {
+      font-size: 1rem;
+      opacity: 0.65;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* MAIN WRAP */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    /* INTRO */
+    .intro-text {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #3a3430;
+      margin-bottom: 56px;
+      text-align: center;
+    }
+
+    /* EXPECTATION CARDS */
+    .expect-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--blush);
+    }
+    .expect-item:last-of-type { border-bottom: none; }
+
+    .expect-emoji {
+      font-size: 2.4rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 4px;
+      width: 52px;
+      text-align: center;
+    }
+
+    .expect-body { }
+
+    .expect-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .expect-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--espresso);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .expect-body p {
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: #4a4540;
+    }
+
+    .expect-body .verdict {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--blush);
+      color: var(--espresso);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    /* SURVIVAL GUIDE BOX */
+    .survival-box {
+      background: var(--espresso);
+      color: var(--cream);
+      border-radius: 4px;
+      padding: 40px 36px;
+      margin: 56px 0;
+    }
+    .survival-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .survival-box .sub {
+      font-size: 0.82rem;
+      opacity: 0.55;
+      margin-bottom: 28px;
+    }
+    .survival-list {
+      list-style: none;
+      padding: 0;
+    }
+    .survival-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    .survival-list li:last-child { margin-bottom: 0; }
+    .survival-list .bullet {
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* QUIZ SECTION */
+    .quiz-wrap {
+      background: #fff;
+      border: 1px solid var(--blush);
+      border-radius: 4px;
+      padding: 40px 36px;
+      margin: 56px 0;
+      text-align: center;
+    }
+    .quiz-wrap h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--espresso);
+      margin-bottom: 8px;
+    }
+    .quiz-wrap .sub {
+      font-size: 0.85rem;
+      color: var(--steam);
+      margin-bottom: 28px;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 1px solid var(--blush);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #3a3430;
+      transition: background 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .quiz-option:hover { background: var(--cream); border-color: var(--steam); }
+    .quiz-option.selected { background: var(--espresso); color: var(--cream); border-color: var(--espresso); }
+    .quiz-option .opt-letter {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      background: var(--blush);
+      color: var(--espresso);
+      padding: 3px 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .quiz-option.selected .opt-letter { background: var(--gold); color: var(--espresso); }
+    .quiz-result {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--moss);
+      min-height: 2rem;
+      transition: opacity 0.3s;
+    }
+
+    /* FINAL NOTE */
+    .final-note {
+      text-align: center;
+      padding: 16px 0 0;
+    }
+    .final-note p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #4a4540;
+      margin-bottom: 28px;
+    }
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid var(--moss);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .cta-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      background: var(--espresso);
+      color: var(--blush);
+      padding: 48px 32px;
+      text-align: center;
+    }
+    footer .f-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    footer p { font-size: 0.78rem; opacity: 0.45; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .expect-item { flex-direction: column; gap: 12px; }
+      .survival-box, .quiz-wrap { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="wordmark" href="cafe-directory.html">The Grind Guide</a>
+  <div class="nav-links">
+    <a href="cafe-directory.html">Directory</a>
+    <a href="about.html">About</a>
+    <a href="expectations.html" class="active">What to Expect</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <p class="kicker">Your Survival Manual</p>
+  <h1>So You're Going to<br><em>a Café.</em></h1>
+  <p class="subtitle">Congratulations. Here's everything that will happen to you, whether you like it or not.</p>
+</section>
+
+<div class="page-wrap">
+
+  <p class="intro-text">Going to a café sounds simple. You walk in, you order coffee, you leave happy. And sometimes — on a magical Tuesday when the planets align and the barista had a good night's sleep — that is exactly what happens. The rest of the time, this guide applies.</p>
+
+  <!-- ITEMS -->
+  <div class="expect-item">
+    <div class="expect-emoji">🚪</div>
+    <div class="expect-body">
+      <p class="expect-num">01 — The Entrance</p>
+      <h3 class="expect-title">You Will Stand in the Doorway Too Long</h3>
+      <p>You'll push when you should pull. You'll pull when you should push. The door will have no handle, only a flat plate, and you will still try to grab it. Someone inside will watch you do this. They will say nothing. You will make eye contact. This is the café experience beginning.</p>
+      <span class="verdict">😶 Estimated duration: 8–45 seconds</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">📋</div>
+    <div class="expect-body">
+      <p class="expect-num">02 — The Menu</p>
+      <h3 class="expect-title">You Will Panic-Order Something You Didn't Want</h3>
+      <p>You had a plan. A flat white, maybe a pastry. But then the board had seventeen options written in chalk at slightly different angles and the person behind you was breathing loudly and you said "oat latte" when you meant "Americano" and now here you are, holding an oat latte, wondering who you are as a person.</p>
+      <span class="verdict">☕ Happens to literally everyone</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">💻</div>
+    <div class="expect-body">
+      <p class="expect-num">03 — The Seating</p>
+      <h3 class="expect-title">The Table You Want Is Always Taken</h3>
+      <p>The window seat. The cosy corner booth. The one with the good natural light. All occupied — by a single person with a laptop, three empty cups, and no apparent intention of leaving before sunset. You will take the wobbly table near the bathroom. You will pretend this is fine.</p>
+      <span class="verdict">🪑 Window seat success rate: 11%</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">📶</div>
+    <div class="expect-body">
+      <p class="expect-num">04 — The WiFi</p>
+      <h3 class="expect-title">The Password Will Be Unhinged</h3>
+      <p>It's on a chalkboard somewhere. You'll look. You won't find it. You'll ask. The barista will recite it with the energy of someone who has said it five hundred times: <em>"CoffeeL0ver$2019exclamation"</em>. You will type it wrong three times. Your phone will say "Incorrect Password." The barista has already walked away.</p>
+      <span class="verdict">📡 Average connection attempts: 4</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">🎵</div>
+    <div class="expect-body">
+      <p class="expect-num">05 — The Music</p>
+      <h3 class="expect-title">It Will Be Exactly the Right Volume to Be Annoying</h3>
+      <p>Not loud enough to enjoy. Not quiet enough to ignore. Just present enough that you hear every fourth word of whatever song is playing and spend ten minutes trying to remember if you like it. Bonus: if you sit for long enough, the same playlist will loop, and you will hear the same song you couldn't identify the first time.</p>
+      <span class="verdict">🎧 Genre: "Indie Chill Café Vol. 47"</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">🥐</div>
+    <div class="expect-body">
+      <p class="expect-num">06 — The Pastry</p>
+      <h3 class="expect-title">You Will Order It. You Will Not Regret It.</h3>
+      <p>You told yourself just coffee. Then you saw the almond croissant under the glass dome, all golden and flaky, dusted with icing sugar, catching the light like a small miracle. You didn't stand a chance. Here's the thing though: this is the right decision. The pastry is always the right decision. Order the pastry.</p>
+      <span class="verdict">✅ The one thing that always goes well</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">🍵</div>
+    <div class="expect-body">
+      <p class="expect-num">07 — The Name Situation</p>
+      <h3 class="expect-title">They Will Mishear Your Name</h3>
+      <p>You said "James." They wrote "Janice." You said "Sarah." The cup says "Sera." Nobody knows how "Dave" became "Bave" but here we are. You will briefly consider correcting them, decide it's not worth it, and spend the next ten minutes hoping nobody else named Bave shows up.</p>
+      <span class="verdict">🖊️ Name accuracy rate: roughly 60%</span>
+    </div>
+  </div>
+
+  <div class="expect-item">
+    <div class="expect-emoji">⏱️</div>
+    <div class="expect-body">
+      <p class="expect-num">08 — The Time</p>
+      <h3 class="expect-title">You Will Stay Much Longer Than Planned</h3>
+      <p>You said fifteen minutes. Maybe twenty. The coffee arrived warm, the seat was comfortable, the background hum was oddly soothing, and at some point your brain just… unclenched. That was ninety minutes ago. This is not a problem. This is the entire point of a café. You've done something right for once.</p>
+      <span class="verdict">🕰️ Planned: 20 min. Actual: 1hr 45min.</span>
+    </div>
+  </div>
+
+  <!-- SURVIVAL BOX -->
+  <div class="survival-box">
+    <h2>The Unofficial Café Survival Guide</h2>
+    <p class="sub">Condensed wisdom from years of fieldwork</p>
+    <ul class="survival-list">
+      <li><span class="bullet">→</span> Always look at the door before you touch it. There are clues.</li>
+      <li><span class="bullet">→</span> If you don't know what to order, say "what do you recommend?" and just go with it. You can do this.</li>
+      <li><span class="bullet">→</span> The WiFi password is case sensitive. It is always case sensitive.</li>
+      <li><span class="bullet">→</span> Bring headphones. Not necessarily to listen to anything — just as emotional armour.</li>
+      <li><span class="bullet">→</span> Tip if you can. The person who made your coffee has heard "CoffeeL0ver$2019exclamation" two hundred times today.</li>
+      <li><span class="bullet">→</span> If the pastry looks good, get the pastry. We cannot stress this enough.</li>
+      <li><span class="bullet">→</span> Accept that you will stay longer than you meant to. Pack accordingly.</li>
+    </ul>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrap">
+    <h2>Which Café Person Are You?</h2>
+    <p class="sub">Answer honestly. We will not judge. (We will judge a little.)</p>
+    <p style="font-size:0.88rem; color:#4a4540; margin-bottom:20px;">When you sit down at a café, the first thing you do is…</p>
+    <div class="quiz-options" id="quizOptions">
+      <div class="quiz-option" onclick="selectOption(this, 'The Laptop Warrior 💻 — You came to work. You did not work. You reorganised your desktop instead.')">
+        <span class="opt-letter">A</span> Open your laptop immediately and place it at an angle that implies you're very busy
+      </div>
+      <div class="quiz-option" onclick="selectOption(this, 'The Atmosphere Sommelier 🌿 — You are here for the vibe, not the coffee. You are correct.')">
+        <span class="opt-letter">B</span> Look around slowly, taking in the decor, and nod approvingly to no one
+      </div>
+      <div class="quiz-option" onclick="selectOption(this, 'The Menu Overthinker 📋 — You will order the same thing you always order, but only after considering every other option first.')">
+        <span class="opt-letter">C</span> Read the entire menu twice before deciding you want a flat white, which you always get
+      </div>
+      <div class="quiz-option" onclick="selectOption(this, 'The Pastry Pilgrim 🥐 — You came for the baked goods. The coffee is a vehicle. This is valid and admirable.')">
+        <span class="opt-letter">D</span> Immediately locate where the pastries are and begin planning your approach
+      </div>
+    </div>
+    <p class="quiz-result" id="quizResult">← Pick one to reveal your café identity</p>
+  </div>
+
+  <!-- FINAL -->
+  <div class="final-note">
+    <p>At the end of the day, a café is just four walls, some good beans, and a room full of people pretending to be more productive than they are. It's one of the best things humans have ever invented. Go enjoy one.</p>
+    <a class="cta-link" href="cafe-directory.html">
+      Find a great café near you
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p class="f-logo">The Grind Guide</p>
+  <p>No cafés were harmed in the making of this page. Several croissants were.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function selectOption(el, result) {
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    const r = document.getElementById('quizResult');
+    r.style.opacity = 0;
+    setTimeout(() => {
+      r.textContent = result;
+      r.style.opacity = 1;
+    }, 200);
+  }
+</script>
+</body>
+</html>
